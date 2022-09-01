@@ -1,0 +1,44 @@
+1) 발표파일(ppt)
+
+2) 분석 코드(ipynb)
+압축파일 내용물:
+01_Movie_crawling: 영화 리뷰 크롤링(네티즌 리뷰)
+01_Movie_crawling_mainpage: 영화 리뷰 크롤링(영화소개 메인페이지)
+02_Movie_File_Merge: 크롤링 파일 합치기
+03_crawling_data_repetition_check: 중복 리뷰 확인
+04_Movie_review_sentimental_analysis: 영화리뷰 감성분석
+05_review_positive_negative_wordcloud: 긍정/부정리뷰 분리 후 워드클라우드
+06_Movie_sentiment_average_and_similarity: 코사인 유사도&평점평균비교
+
+3) 분석에 사용된 데이터
+제출한 자료는 아래 영화들의 관객 리뷰데이터를 크롤링하여 하나의 csv파일에 통합한 자료입니다. 
+
+판타지
+-해리포터
+-반지의 제왕
+-승리호
+-7광구
+-가디언즈 오브 갤럭시
+
+로맨스
+- 이터널 선샤인
+- 러브 액츄얼리
+- 어바웃 타임
+- 나의 사랑 나의 신부
+- 유열의 음악앨범
+
+코미디
+- 극한직업
+- 럭키
+- 가문의 영광5 - 가문의 귀환
+- 19곰 테드
+
+공포
+- 겟아웃
+- 어스
+- 곤지암
+- 랑종
+- 콰이어트 플레이스
+- 파라노말액티비티 
+
+출처: 네이버 영화(https://movie.naver.com)

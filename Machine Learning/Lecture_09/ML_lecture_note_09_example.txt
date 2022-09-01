@@ -1,0 +1,64 @@
+## Data generation
+
+# The number of observations
+k = 1000
+# The values of parameters
+mu = c(-3, 3)
+sigma = c(1, 1)
+
+# The latent variable
+Z = rbinom(k, 1, 0.3)
+# Generate the data A
+A = rnorm(k, mu[1], sigma[1])
+# Generate the data B
+B = rnorm(k, mu[2], sigma[2])
+
+# Generate the data X
+X = A*Z + B*(1-Z)
+
+## Histogram
+
+hist(X, nclass=15, freq=F, main="", ylim = c(0,0.3))
+
+## EM algorithm
+
+Gaussian_mixture = function(data, theta_init, epsilon=1e-5) {
+  k = length(X)
+  error = 100
+  theta_old = theta_init
+  while (error > epsilon) {
+    f1 = dnorm(data, theta_old[2], theta_old[4])
+    f2 = dnorm(data, theta_old[3], theta_old[5])
+    
+    # E-step
+    Z1_hat = theta_old[1]*f1 / (theta_old[1]*f1 + (1-theta_old[1])*f2)
+    Z2_hat = (1-theta_old[1])*f2 / (theta_old[1]*f1 + (1-theta_old[1])*f2)
+    
+    Z1_sum = sum(Z1_hat)
+    Z2_sum = sum(Z2_hat)
+    
+    # M-step
+    p_hat = Z1_sum / (Z1_sum + Z2_sum)
+    mu1_hat = t(Z1_hat)%*%X / Z1_sum
+    sigma1_hat = t(Z1_hat)%*%(X - rep(mu1_hat, k))^2 / Z1_sum
+    mu2_hat = t(Z2_hat)%*%X / Z2_sum
+    sigma2_hat = t(Z2_hat)%*%(X - rep(mu2_hat, k))^2 / Z2_sum
+    
+    # Update parameters
+    theta_new = c(p_hat, mu1_hat, mu2_hat, sigma1_hat, sigma2_hat)
+    error = sum(abs(theta_old - theta_new))
+    theta_old = theta_new
+  }
+  return(theta_new)
+}
+
+## Result
+
+# starting point
+theta = c(0.5, 3, -3, 1, 1)
+Gaussian_mixture(data=X, theta_init=theta)
+
+# Drawing curve
+x = seq(-6,6,0.1)
+y = 0.6744058*dnorm(x, mean = 3.0267382, sd = 1.0209018) + (1 - 0.6744058)*dnorm(x, mean = -2.9106268, sd = 0.9947343)
+lines(x, y, col = 'blue')

@@ -131,3 +131,7 @@ dmypy.json
 # Folder
 Machine Learning/
 Data/
+
+*.csv
+*.zip
+*.pkl
